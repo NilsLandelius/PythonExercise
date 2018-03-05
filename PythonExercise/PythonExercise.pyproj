@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>24c67863-84ea-4611-a074-b7ecc4ed3788</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PythonExercise.py</StartupFile>
+    <StartupFile>list_comprehension.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PythonExercise.py" />
+    <Compile Include="Dictionary.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="list_comprehension.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
