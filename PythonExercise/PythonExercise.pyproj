@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>24c67863-84ea-4611-a074-b7ecc4ed3788</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>passing_functions.py</StartupFile>
+    <StartupFile>decorators.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,6 +25,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="classes_objects.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="decorators.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Dictionary.py">
