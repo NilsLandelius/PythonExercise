@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>24c67863-84ea-4611-a074-b7ecc4ed3788</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>classes_objects.py</StartupFile>
+    <StartupFile>passing_functions.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,13 +21,22 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="args_kwargs.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="classes_objects.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Dictionary.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="inheritance.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="list_comprehension.py" />
+    <Compile Include="passing_functions.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
