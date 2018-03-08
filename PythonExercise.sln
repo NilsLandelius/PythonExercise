@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonExercise", "PythonExercise\PythonExercise.pyproj", "{24C67863-84EA-4611-A074-B7ECC4ED3788}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "FlaskIntro", "FlaskIntro\FlaskIntro.pyproj", "{D6C51191-D35A-414B-ABA9-2521BE0B1715}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{24C67863-84EA-4611-A074-B7ECC4ED3788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24C67863-84EA-4611-A074-B7ECC4ED3788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6C51191-D35A-414B-ABA9-2521BE0B1715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6C51191-D35A-414B-ABA9-2521BE0B1715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
