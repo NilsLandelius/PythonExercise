@@ -8,7 +8,7 @@ import functools
 #--------method, in this case "my_function" but also runs some code before and after
 #--------This demonstrates how the decorators are run before it's associated method
 def my_decorator(func):
-    @functools.wraps(func)
+    #@functools.wraps(func)
     def function_that_runs_func():
         print("In the decorator!")
         func()
@@ -20,7 +20,7 @@ def my_function():
     print("I'm the function!")
 
 
-#my_function()
+my_function()
 
 #----A good usecase for decorators with arguments could be when you
 #----pass user privilages, if the rights are not at a high enough level
@@ -39,10 +39,10 @@ def decorator_with_arguments(number):
         return functions_that_runs_func
     return my_decorator
 
-@decorator_with_arguments(42)
+@decorator_with_arguments(55)
 def my_function_too(arg1,arg2):
     print("Hello {}, your argument is {}".format(arg1,arg2))
 
-my_function_too("Nils",arg2 = "null") 
+#my_function_too("Nils",arg2 = "null") 
 
 
