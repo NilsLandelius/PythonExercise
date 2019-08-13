@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required
 
 from security import authenticate, identity
@@ -23,16 +23,43 @@ class Item(Resource):
             return {'item':item}, 200 if item else 404
 
         def post(self,name):
+            parser = reqparse.RequestParser()
+            parser.add_argument('price', type=float,default=0.0)
             if next(filter(lambda x :x['name']==name, items),None):
                 return{'message':"An item with name {} already exists.".format(name)}, 400
 
-
-            if request.get_json() == None:
-                return {'error':"Not JSON-format"}
-            price = request.get_json()
-            item = {'name': name, 'price':price['price']}
+            data = parser.parse_args()    
+            item = {'name': name, 'price': data['price']}
             items.append(item)
-            return item, 201 
+            return item, 201
+        
+        def delete(self, name):
+            global items
+            checkList = []
+            for item in items:
+                checkList.append(item['name'])
+            if name not in checkList:
+                return {'message': 'Item not found'}
+            else:
+                del items[checkList.index(name)]
+                return {'message': '{} deleted'.format(name)}
+
+        def put(self,name):
+            parser = reqparse.RequestParser()
+            parser.add_argument('price',
+                type=float,
+                required=True,
+                help= "This field cannot be left blank"
+            )
+            data = parser.parse_args()
+
+            item = next(filter(lambda x: x['name']==name,items),None)
+            if item is None:
+                item = {'name': name, 'price':data['price']}
+                items.apppend(item)
+            else:
+                item.update(data)
+            return item
 
 api.add_resource(ItemList,'/items')
 api.add_resource(Item,'/item/<string:name>')
