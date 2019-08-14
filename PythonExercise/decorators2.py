@@ -33,6 +33,7 @@ def split_string(function):
 
     return wrapper
 
+
 @split_string
 @uppercase_decorator
 def say_hi():

@@ -8,7 +8,7 @@ import functools
 #--------method, in this case "my_function" but also runs some code before and after
 #--------This demonstrates how the decorators are run before it's associated method
 def my_decorator(func):
-    #@functools.wraps(func)
+    @functools.wraps(func)
     def function_that_runs_func():
         print("In the decorator!")
         func()
