@@ -50,6 +50,15 @@ class Item(Resource):
             cursor.execute(query,(item['name'],item['price']))
             connection.commit()
             connection.close()
+        
+        @classmethod
+        def update(cls,item):
+                connection = sqlite3.connect('data.db')
+                cursor = connection.cursor()
+                query = 'UPDATE Item SET price=? WHERE name=?'
+                cursor.execute(query,(item['price'],item['name']))
+                connection.commit()
+                connection.close()
 
         def post(self,name):
             parser = reqparse.RequestParser()
@@ -88,11 +97,10 @@ class Item(Resource):
                 help= "This field cannot be left blank"
             )
             data = Item.parser.parse_args()
-
-            item = next(filter(lambda x: x['name']==name,items),None)
-            if item is None:
-                item = {'name': name, 'price':data['price']}
-                items.append(item)
+            item = {'name':name,'price':data['price']}
+            if self.find_by_name(name):
+                Item.update(item)
+                return {'message': '{} was updated with new price'.format(name)}
             else:
-                item.update(data)
-            return item
+                self.insert(item)
+                return {'message': '{} was created'.format(name)}
