@@ -39,24 +39,19 @@ class Item(Resource):
             item = ItemModel(name,data['price'])
 
             try:
-                item.insert()
+                item.save_to_db()
             except:
                 return {'message': 'An error occured inserting the item'}, 500
             
             return item.json(), 201
         
         def delete(self, name):
-            if not ItemModel.find_by_name(name):
-                return{'message':"An item with name {} doesn't exist.".format(name)}, 400
-
-            connection = sqlite3.connect('data.db')
-            cursor = connection.cursor()
-
-            del_query = 'DELETE FROM item WHERE name LIKE ?'
-            cursor.execute(del_query,(name,))
-            connection.commit()
-            connection.close()
-            return {'message':'{} was deleted'.format(name)}
+            item = ItemModel.find_by_name(name)
+            if item:
+                item.delete_from_db()
+            
+            return {'message':'Item deleted'}
+                
 
 
         def put(self,name):
@@ -68,8 +63,5 @@ class Item(Resource):
             data = Item.parser.parse_args()
             item = ItemModel(name,data['price'])
             if ItemModel.find_by_name(name):
-                item.update()
-                return {'message': '{} was updated with new price'.format(name)}
-            else:
-                item.insert()
+                item.save_to_db()
                 return {'message': '{} was created'.format(name)}
