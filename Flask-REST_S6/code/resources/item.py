@@ -1,24 +1,12 @@
 from flask import request
 from flask_restful import Resource, reqparse
 from flask_jwt import JWT, jwt_required
-import sqlite3
 from models.item import ItemModel
 
 
 class ItemList(Resource):
-    def get(self):
-        itemlist = []
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-        query = "SELECT name, price FROM item"
-        for row in cursor.execute(query):
-            itemlist.append({'name':row[0],'price':row[1]})
-        
-        connection.commit()
-        connection.close()
-         
-        
-        return {'items':itemlist} 
+    def get(self):       
+        return {'items':[item.json() for item in ItemModel.query.all()]} 
 
 class Item(Resource):
         parser = reqparse.RequestParser()
@@ -30,13 +18,13 @@ class Item(Resource):
             return {'message': 'The item does not exist'}, 404
 
         def post(self,name):
-            parser = reqparse.RequestParser()
-            parser.add_argument('price', type=float,default=0.0)
+            self.parser.add_argument('price', type=float,default=0.0)
+            self.parser.add_argument('store_id',type=int,required=True,help='Every item need a store id')
             if ItemModel.find_by_name(name):
                 return{'message':"An item with name {} already exists.".format(name)}, 400
 
-            data = parser.parse_args()    
-            item = ItemModel(name,data['price'])
+            data = self.parser.parse_args()    
+            item = ItemModel(name,data['price'],data['store_id'])
 
             try:
                 item.save_to_db()
@@ -60,8 +48,19 @@ class Item(Resource):
                 required=True,
                 help= "This field cannot be left blank"
             )
+            Item.parser.add_argument(
+                'store_id',
+                type=int,
+                required=False,
+                help='Every item need a store id'
+            )
             data = Item.parser.parse_args()
-            item = ItemModel(name,data['price'])
-            if ItemModel.find_by_name(name):
-                item.save_to_db()
-                return {'message': '{} was created'.format(name)}
+            item = ItemModel.find_by_name(name)
+            if item is None:
+                item =ItemModel(name,**data)
+            else:
+                for x in data.keys():
+                    if data[x] is not None and x in item.__dict__:
+                        item.query.filter_by(name=name).update({x:data[x]})
+            item.save_to_db()
+            return item.json()
